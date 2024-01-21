@@ -1,0 +1,93 @@
+<!-- <p>assignment-register works!</p> -->
+<app-global-header
+  [data]="globalHeaderData"
+  *ngIf="!assignment"
+></app-global-header>
+<div
+  nz-row
+  nzAlign="middle"
+  [nzGutter]="[0, 0]"
+  nzJustify="center"
+  class="content-row"
+>
+  <div nz-col nzSpan="22" class="content-col">
+    <nz-card *ngIf="!assignment; else form">
+      <div *ngIf="assignment; else form"></div>
+    </nz-card>
+    <ng-template #form>
+      <form
+        nz-form
+        [formGroup]="registerAssignmentForm"
+        (ngSubmit)="
+          assignment && assignment.id
+            ? editAssignment(assignment.id)
+            : registerAssignment()
+        "
+      >
+        <div
+          nz-row
+          nzAlign="top"
+          [nzGutter]="[24, 24]"
+          nzJustify="space-between"
+        >
+          <nz-divider [nzText]="'Responsables por la asignacion'"></nz-divider>
+          <div nz-col [nzSpan]="24" [nzMd]="12" class="nz-col col-1">
+            <nz-form-item>
+              <nz-form-label nzSpan="24">Asignadores</nz-form-label>
+              <nz-select
+                [formControlName]="'whoAssigns'"
+                [nzPlaceHolder]="'Administradores'"
+                [nzMode]="'tags'"
+              >
+              </nz-select>
+            </nz-form-item>
+          </div>
+          <div nz-col [nzSpan]="24" [nzMd]="12">
+            <nz-form-item>
+              <nz-form-label nzSpan="24"
+                >Responsables de lo asignado</nz-form-label
+              >
+              <nz-select
+                [formControlName]="'responsibleForTheAssignment'"
+                [nzPlaceHolder]="'Empleados'"
+                [nzMode]="'tags'"
+              >
+              </nz-select>
+            </nz-form-item>
+          </div>
+          <div nz-col [nzSpan]="24" [nzMd]="12">
+            <nz-divider [nzText]="'Asignación'"></nz-divider>
+            <nz-form-item>
+              <nz-form-label nzSpan="24">Lo que desea asignar</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                [nzErrorTip]="'Es requerido que ingrese lo que desea asignar'"
+              >
+                <textarea
+                  title="Que desea asignar"
+                  nz-input
+                  [formControlName]="'theAssigned'"
+                  [nzAutosize]="{ minRows: 3 }"
+                  [placeholder]="'Que desea asignar'"
+                ></textarea>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <button
+          *ngIf="!registerAssignmentForm.pristine"
+          [disabled]="!registerAssignmentForm.valid"
+          nz-button
+          type="submit"
+          nzType="primary"
+        >
+          {{
+            assignment && assignment.id
+              ? "Editar Asignación"
+              : "Registrar Asignación"
+          }}
+        </button>
+      </form>
+    </ng-template>
+  </div>
+</div>

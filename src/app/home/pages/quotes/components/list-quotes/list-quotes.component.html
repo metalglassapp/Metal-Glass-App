@@ -1,0 +1,288 @@
+<!-- <p>list-quotes works!</p> -->
+<button type="button" nz-button nzType="primary" (click)="search(true)">
+  <!-- (click)="filterForm.reset(); getQuotes()" -->
+  Limpiar filtros
+</button>
+<nz-table
+  #nzTable
+  [nzData]="quotes"
+  nzTableLayout="fixed"
+  nzTableLayout="fixed"
+  [nzScroll]="{ x: '99%' }"
+  nzShowPagination
+  nzShowSizeChanger
+>
+  <!-- *ngIf="quotes.length > 0" -->
+  <thead>
+    <tr>
+      <th nzWidth="300px" nzCustomFilter>
+        <div
+          nz-row
+          nzAlign="middle"
+          [nzGutter]="[24, 24]"
+          nzJustify="space-between"
+        >
+          <div nz-col>Clientes</div>
+        </div>
+        <form nz-form [formGroup]="filterForm">
+          <div nz-row nzAlign="middle" [nzGutter]="0" nzJustify="space-between">
+            <div nz-col nzSpan="22">
+              <nz-select
+                type="text"
+                title="Cliente"
+                class="filterField"
+                formControlName="clientName"
+                nzPlaceHolder="Cliente"
+              >
+                <!-- (ngModelChange)="search(false, filterForm.value)" -->
+                <nz-option
+                  *ngFor="let client of clients"
+                  [nzValue]="client.names + ' ' + client.surnames"
+                  [nzLabel]="client.names + ' ' + client.surnames"
+                ></nz-option>
+              </nz-select>
+            </div>
+            <div nz-col nzSpan="2">
+              <button
+                type="button"
+                nz-button
+                nzType="primary"
+                (click)="search(false, filterForm.value)"
+                title="Buscar"
+              >
+                <span nz-icon nzType="search"></span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </th>
+      <th nzWidth="200px">
+        <div
+          nz-row
+          nzAlign="middle"
+          [nzGutter]="[24, 24]"
+          nzJustify="space-between"
+        >
+          <div nz-col>Valor por otros $</div>
+          <!-- <div nz-col>
+            <button type="button" nz-button nzType="link" title="othersSearch">
+              <span nz-icon nzType="search" nzTheme="outline"></span>
+            </button>
+          </div> -->
+        </div>
+        <!-- <form nz-form [formGroup]="filterForm">
+          <input
+            type="number"
+            nz-input
+            formControlName="others"
+            placeholder="Otros"
+            (ngModelChange)="search(filterForm.value)"
+          />
+        </form> -->
+      </th>
+      <th nzWidth="210px">
+        <div
+          nz-row
+          nzAlign="middle"
+          [nzGutter]="[24, 24]"
+          nzJustify="space-between"
+        >
+          <div nz-col>Porcenaje extra %</div>
+          <!-- <div nz-col>
+            <button type="button" nz-button nzType="link" title="othersSearch">
+              <span nz-icon nzType="search" nzTheme="outline"></span>
+            </button>
+          </div> -->
+        </div>
+        <!-- <form nz-form [formGroup]="filterForm">
+          <input
+            type="number"
+            nz-input
+            formControlName="extraPercentage"
+            placeholder="Porcentaje"
+            (ngModelChange)="search(filterForm.value)"
+          />
+        </form> -->
+      </th>
+      <th nzWidth="180px">
+        <div
+          nz-row
+          nzAlign="middle"
+          [nzGutter]="[24, 24]"
+          nzJustify="space-between"
+        >
+          <div nz-col>Valor Total $</div>
+          <!-- <div nz-col>
+            <button type="button" nz-button nzType="link" title="othersSearch">
+              <span nz-icon nzType="search" nzTheme="outline"></span>
+            </button>
+          </div> -->
+        </div>
+        <!-- <form nz-form [formGroup]="filterForm">
+          <input
+            type="number"
+            nz-input
+            formControlName="generalValue"
+            placeholder="Total"
+            (ngModelChange)="search(filterForm.value)"
+          />
+        </form> -->
+      </th>
+      <th nzWidth="180px">
+        <div
+          nz-row
+          nzAlign="middle"
+          [nzGutter]="[24, 24]"
+          nzJustify="space-between"
+        >
+          <div nz-col>Registrada</div>
+          <!-- <div nz-col>
+            <button type="button" nz-button nzType="link" title="othersSearch">
+              <span nz-icon nzType="calendar" nzTheme="outline"></span>
+            </button>
+          </div> -->
+        </div>
+      </th>
+      <!-- <th nzWidth="220px">
+        <div
+          nz-row
+          nzAlign="middle"
+          [nzGutter]="[24, 24]"
+          nzJustify="space-between"
+        >
+          <div nz-col>Ultima modificación</div>
+          <div nz-col>
+            <button type="button" nz-button nzType="link" title="othersSearch">
+              <span nz-icon nzType="calendar" nzTheme="outline"></span>
+            </button>
+          </div>
+        </div>
+      </th> -->
+      <th nzWidth="180px">
+        <div nz-row nzAlign="middle" [nzGutter]="[24, 24]" nzJustify="center">
+          <div nz-col>Acciones</div>
+        </div>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let quote of nzTable.data; let i = index">
+      <td>
+        <!-- <p *ngFor="let name of quote.clientsNames; let i = index">
+          {{ name }}
+        </p> -->
+        {{ quote.clientName }}
+      </td>
+      <td>${{ quote.others | number }}</td>
+      <td>{{ quote.extraPercentage | number }}%</td>
+      <td>${{ quote.generalValue | number }}</td>
+      <!-- <td>{{ quote.createdAt | date }}</td> -->
+      <td>{{ quote.createdAt }}</td>
+      <!-- <td>{{ quote.updatedAt | date }}</td> -->
+      <!-- <td>{{ quote.updatedAt }}</td> -->
+      <td>
+        <div nz-row nzJustify="space-evenly">
+          <div nz-col>
+            <button
+              nz-button
+              nzType="primary"
+              nzShape="circle"
+              title="Ver"
+              type="button"
+              (click)="quoteViewAction(quote)"
+            >
+              <span nz-icon nzType="eye" title="Editar"></span>
+            </button>
+          </div>
+          <!-- <div nz-col>
+            <button
+              nz-button
+              nzShape="circle"
+              title="Editar"
+              type="button"
+              (click)="quoteEditAction(quote)"
+            >
+              <span nz-icon nzType="edit" title="Editar"></span>
+            </button>
+          </div> -->
+          <div nz-col>
+            <ng-template #contentTemplate>
+              <div nz-row nzAlign="middle" nzJustify="space-around">
+                <div nz-col>
+                  <button
+                    nz-button
+                    nzType="primary"
+                    nzSize="default"
+                    title="NoDelete"
+                    (click)="nzPopoverVisible = false"
+                  >
+                    No
+                  </button>
+                </div>
+                <div nz-col>
+                  <button
+                    nz-button
+                    nzType="primary"
+                    nzDanger
+                    nzSize="default"
+                    title="Delete"
+                    (click)="quoteDeleteAction(quote)"
+                  >
+                    Si
+                  </button>
+                </div>
+              </div>
+            </ng-template>
+            <a
+              nz-button
+              nzType="link"
+              nzType="primary"
+              nzShape="circle"
+              nzDanger
+              title="Eliminar"
+              (click)="quotePerDelete = quote; quotePerDeletePositon = i"
+            >
+              <span nz-icon nzType="delete" title="Eliminar"></span
+            ></a>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+<div nz-row *ngIf="quotePerDelete" nzJustify="center">
+  <div nz-col [nzSpan]="22">
+    <nz-alert
+      nzShowIcon
+      nzType="warning"
+      nzMessage="¿Seguro?"
+      [nzDescription]="descriptionTemplate2"
+    ></nz-alert>
+    <ng-template #descriptionTemplate2>
+      <!-- <p>Info Description Info Description Info Description Info Description</p> -->
+      <p>¿Seguro de eliminar esta cotización?</p>
+      <div nz-row nzAlign="middle" [nzGutter]="[24, 24]" nzJustify="end">
+        <div nz-col>
+          <button
+            nz-button
+            nzType="primary"
+            nzDanger
+            (click)="quoteDeleteAction(quotePerDelete)"
+          >
+            <!-- (click)="deleteProduct(quotePerDelete.id ?? '')" -->
+            Eliminar
+          </button>
+        </div>
+        <div nz-col>
+          <button
+            nz-button
+            nzType="primary"
+            (click)="quotePerDelete = null; quotePerDeletePositon = null"
+          >
+            Mejor no
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

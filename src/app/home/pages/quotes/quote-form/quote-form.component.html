@@ -1,0 +1,766 @@
+<!-- <p>quote-form works!</p> -->
+<!-- *ngIf="!quote || quote === null" -->
+<app-global-header
+  [data]="{
+    tittle: headerInfo.tittle,
+    backTo: {
+      label: headerInfo.backTo.label,
+      route: headerInfo.backTo.route
+    }
+  }"
+></app-global-header>
+<div
+  nz-row
+  nzAlign="middle"
+  [nzGutter]="[0, 0]"
+  nzJustify="center"
+  class="contentContainer"
+>
+  <div nz-col nzSpan="23">
+    <div nz-row nzAlign="top" [nzGutter]="[24, 24]" nzJustify="space-around">
+      <div
+        nz-col
+        [nzXXl]="7"
+        [nzXl]="7"
+        [nzLg]="7"
+        [nzMd]="8"
+        [nzSm]="22"
+        [nzXs]="22"
+        class="productsForQuote"
+      >
+        <app-types-of-products-to-quote
+          (typesEmiter)="typesEmiter($event)"
+          (typesOfProductsToQuoteEmiter)="typesOfProductsToQuoteEmiter($event)"
+          [productsList]="productsList"
+          [typesOfProductsToQuote]="typesOfProductsToQuote"
+        ></app-types-of-products-to-quote>
+      </div>
+      <div
+        nz-col
+        [nzXXl]="16"
+        [nzXl]="16"
+        [nzLg]="16"
+        [nzMd]="15"
+        [nzSm]="24"
+        [nzXs]="24"
+        class="quoteProductsCol"
+      >
+        <div nz-row nzAlign="middle" [nzGutter]="[24, 24]" nzJustify="center">
+          <div nz-col nzSpan="24">
+            <form nz-form [formGroup]="formQuoteGeneral">
+              <nz-card>
+                <nz-collapse>
+                  <nz-collapse-panel nzHeader="Campos Referentes">
+                    <div
+                      nz-row
+                      nzAlign="middle"
+                      [nzGutter]="[24, 24]"
+                      nzJustify="center"
+                    >
+                      <div nz-col [nzSpan]="24">
+                        <nz-form-item>
+                          <nz-form-label [nzSpan]="24"
+                            >Numero de cotización</nz-form-label
+                          >
+                          <nz-form-control nzErrorTip="!Este campo es querido¡">
+                            <input
+                              type="number"
+                              nz-input
+                              formControlName="quoteNumber"
+                              placeholder="Numero"
+                            />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div nz-col [nzSpan]="24">
+                        <nz-form-item>
+                          <nz-form-label [nzSpan]="24"
+                            >Nit de la empresa</nz-form-label
+                          >
+                          <nz-form-control nzErrorTip="!Este campo es querido¡">
+                            <input
+                              type="string"
+                              nz-input
+                              formControlName="metalGlassNit"
+                              placeholder="Nit"
+                            />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div nz-col [nzSpan]="24">
+                        <nz-form-item>
+                          <nz-form-label [nzSpan]="24"
+                            >Celular de la empresa</nz-form-label
+                          >
+                          <nz-form-control nzErrorTip="!Este campo es querido¡">
+                            <input
+                              type="string"
+                              nz-input
+                              formControlName="metalGlassCellPhoneNumber"
+                              placeholder="Celular"
+                            />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div nz-col [nzSpan]="24">
+                        <nz-form-item>
+                          <nz-form-label [nzSpan]="24"
+                            >Encabezado</nz-form-label
+                          >
+                          <nz-form-control nzErrorTip="!Este campo es querido¡">
+                            <textarea
+                              rows="2"
+                              nz-input
+                              title="headerTitle"
+                              formControlName="headerTitle"
+                              placeholder="Encabezado"
+                            ></textarea>
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div nz-col [nzSpan]="24">
+                        <nz-form-item>
+                          <nz-form-label [nzSpan]="24">Clientes</nz-form-label>
+                          <nz-form-control
+                            nzErrorTip="!Los clientes son requeridos¡"
+                          >
+                            <!-- nzMode="multiple" -->
+                            <nz-select
+                              class="clientsFilter"
+                              nzShowSearch
+                              formControlName="client"
+                              nzPlaceHolder="Clientes"
+                              (ngModelChange)="tests($event)"
+                            >
+                              <!-- [nzValue]="client.id" -->
+                              <nz-option
+                                *ngFor="let client of clients"
+                                [nzValue]="{
+                                  id: client.id,
+                                  name: client.names + ' ' + client.surnames
+                                }"
+                                [nzLabel]="client.names + ' ' + client.surnames"
+                              ></nz-option>
+                            </nz-select>
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                    </div>
+                    <div
+                      nz-row
+                      nzAlign="middle"
+                      [nzGutter]="[24, 12]"
+                      nzJustify="center"
+                    >
+                      <div nz-col [nzSpan]="24">
+                        <nz-form-item>
+                          <nz-form-label [nzSpan]="24"
+                            >Nit del cliente</nz-form-label
+                          >
+                          <nz-form-control nzErrorTip="!Este campo es querido¡">
+                            <input
+                              type="string"
+                              nz-input
+                              formControlName="clientNit"
+                              placeholder="Nit"
+                            />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div nz-col [nzSpan]="24">
+                        <nz-form-item>
+                          <nz-form-label [nzSpan]="24">Contacto</nz-form-label>
+                          <nz-form-control nzErrorTip="!Este campo es querido¡">
+                            <input
+                              type="string"
+                              nz-input
+                              formControlName="clientContact"
+                              placeholder="Contacto"
+                            />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div nz-col [nzSpan]="24">
+                        <nz-form-item>
+                          <nz-form-label [nzSpan]="24">Ciudad</nz-form-label>
+                          <nz-form-control nzErrorTip="!Este campo es querido¡">
+                            <input
+                              type="string"
+                              nz-input
+                              formControlName="city"
+                              placeholder="Ciudad"
+                            />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div nz-col [nzSpan]="24">
+                        <nz-form-item>
+                          <nz-form-label [nzSpan]="24"
+                            >Celular del cliente</nz-form-label
+                          >
+                          <nz-form-control nzErrorTip="!Este campo es querido¡">
+                            <input
+                              type="string"
+                              nz-input
+                              formControlName="clientCellPhoneNumber"
+                              placeholder="Celular del cliente"
+                            />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div nz-col [nzSpan]="24">
+                        <nz-form-item>
+                          <nz-form-label [nzSpan]="24">Direccíon</nz-form-label>
+                          <nz-form-control nzErrorTip="!Este campo es querido¡">
+                            <input
+                              type="string"
+                              nz-input
+                              formControlName="address"
+                              placeholder="Direccíon"
+                            />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div nz-col [nzSpan]="24">
+                        <nz-form-item>
+                          <nz-form-label [nzSpan]="24">Correo</nz-form-label>
+                          <nz-form-control nzErrorTip="!Este campo es querido¡">
+                            <input
+                              type="string"
+                              nz-input
+                              formControlName="email"
+                              placeholder="Correo"
+                            />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div nz-col [nzSpan]="24">
+                        <nz-form-item>
+                          <nz-form-label [nzSpan]="24"
+                            >Observaciones</nz-form-label
+                          >
+                          <nz-form-control nzErrorTip="!Este campo es querido¡">
+                            <textarea
+                              rows="5"
+                              nz-input
+                              title="observations"
+                              formControlName="observations"
+                              placeholder="Observaciones"
+                            ></textarea>
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                    </div>
+                  </nz-collapse-panel>
+                </nz-collapse>
+                <div
+                  nz-row
+                  nzAlign="middle"
+                  [nzGutter]="[24, 12]"
+                  nzJustify="center"
+                >
+                  <div nz-col [nzSpan]="24">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="24">Otros</nz-form-label>
+                      <nz-form-control nzErrorTip="!Este campo es querido¡">
+                        <input
+                          type="number"
+                          [min]="0"
+                          [step]="50"
+                          nz-input
+                          formControlName="others"
+                          placeholder="Otros"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div nz-col [nzSpan]="24">
+                    <nz-form-item>
+                      <nz-form-label [nzSpan]="24"
+                        >Porcentaje extra</nz-form-label
+                      >
+                      <nz-form-control nzErrorTip="!Este campo es querido¡">
+                        <input
+                          type="number"
+                          [min]="0"
+                          nz-input
+                          formControlName="extraPercentage"
+                          placeholder="Porcentaje"
+                        />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                </div>
+                <div
+                  nz-row
+                  nzAlign="middle"
+                  [nzGutter]="[24, 24]"
+                  nzJustify="center"
+                >
+                  <ng-container formArrayName="formQuoteGeneralArray">
+                    <div
+                      nz-col
+                      [nzSpan]="24"
+                      *ngFor="
+                        let formQuoteGeneralItem of formQuoteGeneralArray.controls;
+                        let index = index
+                      "
+                    >
+                      <ng-template #quoteTittle>
+                        <div
+                          nz-row
+                          nzAlign="middle"
+                          [nzGutter]="[24, 24]"
+                          nzJustify="center"
+                          *ngIf="productsList && productsList.length > 0"
+                        >
+                          <div nz-col [nzSpan]="11">
+                            <h3 nz-typography>
+                              {{ productsList[index].type }} -
+                              {{ productsList[index].amountPosition }}
+                            </h3>
+                          </div>
+                          <div nz-col [nzSpan]="11">
+                            <h3 nz-typography>
+                              Articulo -
+                              {{ productsList[index].articuleNumber }}
+                            </h3>
+                          </div>
+                        </div>
+                      </ng-template>
+                      <nz-card [nzTitle]="quoteTittle">
+                        <div [formGroupName]="index">
+                          <div [formGroupName]="'addForm'">
+                            <div
+                              nz-row
+                              nzAlign="middle"
+                              [nzGutter]="[24, 24]"
+                              nzJustify="center"
+                            >
+                              <div nz-col [nzSpan]="24">
+                                <nz-form-item>
+                                  <nz-form-label [nzSpan]="24"
+                                    >Referencias adicionales</nz-form-label
+                                  >
+                                  <nz-form-control
+                                    nzErrorTip="!La referencias adicionales son requeridas¡"
+                                  >
+                                    <nz-select
+                                      nzMode="multiple"
+                                      class="aditionalReferenceFilter"
+                                      nzShowSearch
+                                      formControlName="aditionalReference"
+                                      nzPlaceHolder="Referencias"
+                                    >
+                                      <nz-option
+                                        *ngFor="
+                                          let AditionalReference of AditionalReferences
+                                        "
+                                        [nzValue]="{
+                                          reference: AditionalReference.id,
+                                          label: AditionalReference.reference
+                                        }"
+                                        [nzLabel]="AditionalReference.reference"
+                                      ></nz-option>
+                                    </nz-select>
+                                  </nz-form-control>
+                                </nz-form-item>
+                              </div>
+                              <div nz-col [nzSpan]="24">
+                                <nz-form-item>
+                                  <nz-form-label [nzSpan]="24"
+                                    >Accesorios</nz-form-label
+                                  >
+                                  <nz-form-control
+                                    nzErrorTip="!Los accesorios son requeridos¡"
+                                  >
+                                    <nz-select
+                                      nzMode="multiple"
+                                      class="accessoryFilter"
+                                      nzShowSearch
+                                      formControlName="SelectedAccessories"
+                                      nzPlaceHolder="Accesorios"
+                                    >
+                                      <nz-option
+                                        *ngFor="let accessory of accessories"
+                                        [nzValue]="{
+                                          label: accessory.name,
+                                          amount: 1,
+                                          value: 0,
+                                          accessory
+                                        }"
+                                        [nzLabel]="accessory.name"
+                                      ></nz-option>
+                                    </nz-select>
+                                  </nz-form-control>
+                                </nz-form-item>
+                                <div
+                                  nz-row
+                                  nzAlign="middle"
+                                  [nzGutter]="[24, 24]"
+                                  nzJustify="center"
+                                >
+                                  <div
+                                    *ngFor="
+                                      let accessorySelect of formQuoteGeneralItem
+                                        .value.addForm.SelectedAccessories;
+                                      let i = index
+                                    "
+                                  >
+                                    <div nz-col [nzSpan]="24">
+                                      <nz-card nzHoverable>
+                                        <h5 nz-typography>accesorio</h5>
+                                        <h4 nz-typography>
+                                          {{ accessorySelect.label }}
+                                        </h4>
+                                        <nz-form-item>
+                                          <nz-form-label [nzSpan]="24"
+                                            >Cantidad</nz-form-label
+                                          >
+                                          <nz-form-control
+                                            nzErrorTip="La cantidad es necesaria"
+                                          >
+                                            <input
+                                              type="number"
+                                              nz-input
+                                              [min]="1"
+                                              [(ngModel)]="
+                                                accessorySelect.amount
+                                              "
+                                              [ngModelOptions]="{
+                                                standalone: true
+                                              }"
+                                              placeholder="Cantidad"
+                                            />
+                                          </nz-form-control>
+                                        </nz-form-item>
+                                        <b>
+                                          ${{
+                                            accessorySelect.amount *
+                                              accessorySelect.accessory.price
+                                              | number
+                                          }}
+                                        </b>
+                                      </nz-card>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div nz-col [nzSpan]="24">
+                                <nz-form-item>
+                                  <nz-form-label [nzSpan]="24"
+                                    >Perfiles</nz-form-label
+                                  >
+                                  <nz-form-control
+                                    nzErrorTip="!Los perfiles son requeridos¡"
+                                  >
+                                    <nz-select
+                                      nzMode="multiple"
+                                      class="profileFilter"
+                                      nzShowSearch
+                                      formControlName="selectedProfiles"
+                                      nzPlaceHolder="Perfiles"
+                                    >
+                                      <nz-option
+                                        *ngFor="let profile of profiles"
+                                        [nzValue]="{
+                                          label: profile.name,
+                                          amount: 1,
+                                          profile
+                                        }"
+                                        [nzLabel]="profile.name"
+                                      ></nz-option>
+                                    </nz-select>
+                                    <ng-template #selectIcon>
+                                      <span
+                                        nz-icon
+                                        nzType="select"
+                                        nzTheme="outline"
+                                      ></span>
+                                    </ng-template>
+                                  </nz-form-control>
+                                </nz-form-item>
+                                <div
+                                  nz-row
+                                  nzAlign="middle"
+                                  [nzGutter]="[24, 24]"
+                                  nzJustify="center"
+                                >
+                                  <div
+                                    *ngFor="
+                                      let profile of formQuoteGeneralItem.value
+                                        .addForm.selectedProfiles;
+                                      let i = index
+                                    "
+                                  >
+                                    <div nz-col [nzSpan]="24">
+                                      <nz-card nzHoverable>
+                                        <h5 nz-typography>perfil</h5>
+                                        <h5 nz-typography>
+                                          {{ profile.label }}
+                                        </h5>
+                                        <nz-form-item>
+                                          <nz-form-label nzSpan="24">
+                                            Cantidad de metros
+                                          </nz-form-label>
+                                          <nz-form-control
+                                            nzErrorTip="La cantidad de metros es requerida"
+                                          >
+                                            <input
+                                              type="number"
+                                              min="1"
+                                              nz-input
+                                              [(ngModel)]="profile.amount"
+                                              [ngModelOptions]="{
+                                                standalone: true
+                                              }"
+                                              placeholder="Cantidad"
+                                            />
+                                          </nz-form-control>
+                                        </nz-form-item>
+                                        <b>
+                                          ${{
+                                            profile.amount *
+                                              profile.profile.pricePerMeter
+                                              | number
+                                          }}
+                                        </b>
+                                      </nz-card>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div nz-col [nzSpan]="24">
+                                <nz-form-item>
+                                  <nz-form-label [nzSpan]="24"
+                                    >Vidrios</nz-form-label
+                                  >
+                                  <nz-form-control
+                                    nzErrorTip="!Los vidrios son requerido¡"
+                                  >
+                                    <nz-select
+                                      nzMode="multiple"
+                                      class="glassFilter"
+                                      nzShowSearch
+                                      formControlName="selectedGlasses"
+                                      nzPlaceHolder="vidrios"
+                                    >
+                                      <nz-option
+                                        *ngFor="let glass of glasses"
+                                        [nzValue]="{
+                                          label: glass.name,
+                                          amount: 1,
+                                          glass
+                                        }"
+                                        [nzLabel]="glass.name"
+                                      ></nz-option>
+                                    </nz-select>
+                                    <ng-template #selectIcon>
+                                      <span
+                                        nz-icon
+                                        nzType="select"
+                                        nzTheme="outline"
+                                      ></span>
+                                    </ng-template>
+                                  </nz-form-control>
+                                </nz-form-item>
+                                <div
+                                  nz-row
+                                  nzAlign="middle"
+                                  [nzGutter]="[24, 24]"
+                                  nzJustify="center"
+                                >
+                                  <div
+                                    *ngFor="
+                                      let glass of formQuoteGeneralItem.value
+                                        .addForm.selectedGlasses;
+                                      let i = index
+                                    "
+                                  >
+                                    <div nz-col [nzSpan]="24">
+                                      <nz-card nzHoverable>
+                                        <h5 nz-typography>vidrio</h5>
+                                        <h5 nz-typography>
+                                          {{ glass.label }}
+                                        </h5>
+                                        <nz-form-item>
+                                          <nz-form-label nzSpan="24">
+                                            Cantidad de metros cuadrados
+                                          </nz-form-label>
+                                          <nz-form-control
+                                            nzErrorTip="La cantidad de metros cuadrados es requerida"
+                                          >
+                                            <input
+                                              type="number"
+                                              nz-input
+                                              min="1"
+                                              [(ngModel)]="glass.amount"
+                                              [ngModelOptions]="{
+                                                standalone: true
+                                              }"
+                                              placeholder="Cantidad"
+                                            />
+                                          </nz-form-control>
+                                        </nz-form-item>
+                                        <b>
+                                          ${{
+                                            glass.amount *
+                                              glass.glass.pricePerSquareMeter
+                                              | number
+                                          }}
+                                        </b>
+                                      </nz-card>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div nz-col [nzSpan]="24">
+                                <nz-form-item>
+                                  <nz-form-label [nzSpan]="24"
+                                    >Acrilicos</nz-form-label
+                                  >
+                                  <nz-form-control
+                                    nzErrorTip="!Los acrilicos son requerido¡"
+                                  >
+                                    <nz-select
+                                      nzMode="multiple"
+                                      class="acrilicFilter"
+                                      nzShowSearch
+                                      formControlName="selectedAcrylics"
+                                      nzPlaceHolder="Acrilicos"
+                                    >
+                                      <nz-option
+                                        *ngFor="let acrylic of acrylics"
+                                        [nzValue]="{
+                                          id: acrylic.id,
+                                          label: acrylic.name,
+                                          amount: 1,
+                                          acrylic
+                                        }"
+                                        [nzLabel]="acrylic.name"
+                                      ></nz-option>
+                                    </nz-select>
+                                    <ng-template #selectIcon>
+                                      <span
+                                        nz-icon
+                                        nzType="select"
+                                        nzTheme="outline"
+                                      ></span>
+                                    </ng-template>
+                                  </nz-form-control>
+                                </nz-form-item>
+                                <div
+                                  nz-row
+                                  nzAlign="middle"
+                                  [nzGutter]="[24, 24]"
+                                  nzJustify="center"
+                                >
+                                  <div
+                                    *ngFor="
+                                      let acrylic of formQuoteGeneralItem.value
+                                        .addForm.selectedAcrylics;
+                                      let i = index
+                                    "
+                                  >
+                                    <div nz-col [nzSpan]="24">
+                                      <nz-card nzHoverable>
+                                        <h5 nz-typography>acrilico</h5>
+                                        <h5 nz-typography>
+                                          {{ acrylic.label }}
+                                        </h5>
+                                        <nz-form-item>
+                                          <nz-form-label nzSpan="24">
+                                            Cantidad de metros cuadrados
+                                          </nz-form-label>
+                                          <nz-form-control
+                                            nzErrorTip="La cantidad de metros cuadrados es requerida"
+                                          >
+                                            <input
+                                              type="number"
+                                              nz-input
+                                              min="1"
+                                              [(ngModel)]="acrylic.amount"
+                                              [ngModelOptions]="{
+                                                standalone: true
+                                              }"
+                                              placeholder="Cantidad"
+                                            />
+                                          </nz-form-control>
+                                        </nz-form-item>
+                                        <b>
+                                          ${{
+                                            acrylic.amount *
+                                              acrylic.acrylic
+                                                .pricePerSquareMeter | number
+                                          }}
+                                        </b>
+                                      </nz-card>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div nz-col [nzSpan]="24">
+                                <button
+                                  nz-button
+                                  nzDanger
+                                  nzType="primary"
+                                  type="button"
+                                  title="Quitar"
+                                  class="articuleRemoveButton"
+                                  (click)="
+                                    articuleRemove(
+                                      productsPerQuote,
+                                      productsPerQuote[index],
+                                      index
+                                    )
+                                  "
+                                >
+                                  Remover Articulo
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </nz-card>
+                    </div>
+                  </ng-container>
+                </div>
+                <div
+                  *ngIf="
+                    formQuoteGeneralArray.length > 0 &&
+                    !formQuoteGeneral.pristine
+                  "
+                >
+                  <nz-divider></nz-divider>
+                  <div
+                    nz-row
+                    nzAlign="middle"
+                    [nzGutter]="[24, 24]"
+                    nzJustify="end"
+                  >
+                    <div nz-col nzSpan="6">
+                      <button
+                        type="button"
+                        nz-button
+                        nzType="primary"
+                        (click)="showConfirm()"
+                        [disabled]="formQuoteGeneral.invalid"
+                        *ngIf="
+                          formQuoteGeneralArray.length > 0 &&
+                          !formQuoteGeneral.pristine
+                        "
+                      >
+                        Siguiente
+                        <span nz-icon nzType="right" nzTheme="outline"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </nz-card>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+.quoteProducts {
+  /* overflow-y: scroll; */
+  height: 100%;
+}
+
+.quoteProducts nz-card {
+  height: 100%;
+}
+
+form,
+form div,
+nz-form-item,
+nz-form-control,
+nz-select {
+  width: 100%;
+}
+
+.contentCard {
+  min-height: 470px;
+  /* max-height: 470px; */
+}
+
+.contentCard:hover {
+  /* min-height: 470px; */
+  /* transform: scale(1.01); */
+  border: solid 0.1rem black;
+}

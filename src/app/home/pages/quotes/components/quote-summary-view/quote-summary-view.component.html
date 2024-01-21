@@ -1,0 +1,311 @@
+<!-- <p>quote-summary-view works!</p> -->
+<div nz-row nzAlign="middle" [nzGutter]="[24, 24]" nzJustify="center">
+  <div nz-col [nzSpan]="23">
+    <ng-template #ClientsListTitle>
+      <b>Clientes</b>
+    </ng-template>
+    <!-- <nz-list nzBordered nzHeader="Clientes"> -->
+    <nz-list nzBordered [nzHeader]="ClientsListTitle">
+      <!-- <nz-list-item *ngFor="let client of formQuoteGeneral.clients">
+        {{ client.client.names + " " + client.client.surnames }}
+      </nz-list-item> -->
+      <nz-list-item *ngFor="let client of clients">
+        <!-- {{ client.names + " " + client.surnames }} -->
+        {{ client.name ?? client.names + " " + client.surnames }}
+      </nz-list-item>
+    </nz-list>
+  </div>
+  <div
+    nz-col
+    [nzSpan]="23"
+    *ngFor="
+      let formQuoteItem of formQuoteGeneral.formQuoteGeneralArray;
+      let i = index
+    "
+  >
+    <ng-template #referenceTitle>
+      <nz-row
+        nzAlign="middle"
+        [nzGutter]="[24, 24]"
+        nzJustify="space-between"
+        *ngIf="productsPerQuote && productsPerQuote.length > 0"
+      >
+        <div nz-col>
+          <h3 nz-typography>
+            {{ productsPerQuote[i].type }} -
+            {{ productsPerQuote[i].amountPosition }}
+          </h3>
+        </div>
+        <div nz-col>
+          <h3 nz-typography>
+            Articulo -
+            {{ productsPerQuote[i].articuleNumber }}
+          </h3>
+        </div>
+      </nz-row>
+    </ng-template>
+    <nz-card nzHoverable [nzTitle]="referenceTitle">
+      <div nz-row nzAlign="middle" [nzGutter]="[24, 24]" nzJustify="center">
+        <div
+          nz-col
+          [nzSpan]="24"
+          *ngIf="formQuoteItem.addForm.aditionalReference.length > 0"
+        >
+          <ng-template #aditionalReferencesListTitle>
+            <b>Referencias Adicionales</b>
+          </ng-template>
+          <nz-list nzBordered [nzHeader]="aditionalReferencesListTitle">
+            <nz-list-item
+              *ngFor="
+                let aditionalReference of formQuoteItem.addForm
+                  .aditionalReference
+              "
+            >
+              {{ aditionalReference.label }}
+            </nz-list-item>
+          </nz-list>
+        </div>
+        <div
+          nz-col
+          [nzSpan]="24"
+          *ngIf="formQuoteItem.addForm.SelectedAccessories.length > 0"
+        >
+          <ng-template #AccessoryListFooter>
+            <div nz-row nzAlign="middle" [nzGutter]="[24, 24]" nzJustify="end">
+              <div nz-col>
+                <p>
+                  Total accesorios:
+                  <b>
+                    ${{ formQuoteItem.addForm.accessoriesTotal | number }}
+                  </b>
+                </p>
+              </div>
+            </div>
+          </ng-template>
+          <nz-list
+            nzBordered
+            nzHeader="Accessorios"
+            [nzFooter]="AccessoryListFooter"
+          >
+            <nz-list-item
+              *ngFor="
+                let selectedAccessory of formQuoteItem.addForm
+                  .SelectedAccessories
+              "
+            >
+              <div
+                nz-row
+                nzAlign="middle"
+                [nzGutter]="[24, 24]"
+                nzJustify="space-between"
+                class="selectedAccessoryList"
+              >
+                <div nz-col>
+                  <h4 nz-typography>{{ selectedAccessory.label }}</h4>
+                  ${{ selectedAccessory.accessory.price | number }}
+                </div>
+                <div nz-col>
+                  <h4 nz-typography>{{ selectedAccessory.amount | number }}</h4>
+                  ${{
+                    selectedAccessory.amount * selectedAccessory.accessory.price
+                      | number
+                  }}
+                </div>
+              </div>
+            </nz-list-item>
+          </nz-list>
+        </div>
+        <div
+          nz-col
+          [nzSpan]="24"
+          *ngIf="formQuoteItem.addForm.selectedProfiles.length > 0"
+        >
+          <ng-template #ProfileListFooter>
+            <div nz-row nzAlign="middle" [nzGutter]="[24, 24]" nzJustify="end">
+              <div nz-col>
+                <p>
+                  Total Perfiles:
+                  <b> ${{ formQuoteItem.addForm.profilesTotal | number }} </b>
+                </p>
+              </div>
+            </div>
+          </ng-template>
+          <nz-list
+            nzBordered
+            nzHeader="Perfiles"
+            [nzFooter]="ProfileListFooter"
+          >
+            <nz-list-item
+              *ngFor="
+                let selectedProfile of formQuoteItem.addForm.selectedProfiles
+              "
+            >
+              <div
+                nz-row
+                nzAlign="middle"
+                [nzGutter]="[24, 24]"
+                nzJustify="space-between"
+                class="selectedProfileList"
+              >
+                <div nz-col>
+                  <h4 nz-typography>{{ selectedProfile.label }}</h4>
+                  ${{ selectedProfile.profile.pricePerMeter | number }}
+                </div>
+                <div nz-col>
+                  <h4 nz-typography>{{ selectedProfile.amount | number }}</h4>
+                  ${{
+                    selectedProfile.amount *
+                      selectedProfile.profile.pricePerMeter | number
+                  }}
+                </div>
+              </div>
+            </nz-list-item>
+          </nz-list>
+        </div>
+        <div
+          nz-col
+          [nzSpan]="24"
+          *ngIf="formQuoteItem.addForm.selectedGlasses.length > 0"
+        >
+          <ng-template #GlassListFooter>
+            <div nz-row nzAlign="middle" [nzGutter]="[24, 24]" nzJustify="end">
+              <div nz-col>
+                <p>
+                  Total Vidrios:
+                  <b> ${{ formQuoteItem.addForm.glassesTotal | number }} </b>
+                </p>
+              </div>
+            </div>
+          </ng-template>
+          <nz-list nzBordered nzHeader="Vidrios" [nzFooter]="GlassListFooter">
+            <nz-list-item
+              *ngFor="
+                let selectedGlass of formQuoteItem.addForm.selectedGlasses
+              "
+            >
+              <div
+                nz-row
+                nzAlign="middle"
+                [nzGutter]="[24, 24]"
+                nzJustify="space-between"
+                class="selectedGlassList"
+              >
+                <div nz-col>
+                  <h4 nz-typography>{{ selectedGlass.label }}</h4>
+                  ${{ selectedGlass.glass.pricePerSquareMeter | number }}
+                </div>
+                <div nz-col>
+                  <h4 nz-typography>{{ selectedGlass.amount | number }}</h4>
+                  ${{
+                    selectedGlass.amount *
+                      selectedGlass.glass.pricePerSquareMeter | number
+                  }}
+                </div>
+              </div>
+            </nz-list-item>
+          </nz-list>
+        </div>
+        <div
+          nz-col
+          [nzSpan]="24"
+          *ngIf="formQuoteItem.addForm.selectedAcrylics.length > 0"
+        >
+          <ng-template #AcryilicListFooter>
+            <div nz-row nzAlign="middle" [nzGutter]="[24, 24]" nzJustify="end">
+              <div nz-col>
+                <p>
+                  Total Acrilicos:
+                  <b> ${{ formQuoteItem.addForm.acrylicsTotal | number }} </b>
+                </p>
+              </div>
+            </div>
+          </ng-template>
+          <nz-list
+            nzBordered
+            nzHeader="Acrilicos"
+            [nzFooter]="AcryilicListFooter"
+          >
+            <nz-list-item
+              *ngFor="
+                let selectedAcrylic of formQuoteItem.addForm.selectedAcrylics
+              "
+            >
+              <div
+                nz-row
+                nzAlign="middle"
+                [nzGutter]="[24, 24]"
+                nzJustify="space-between"
+                class="selectedAcrylicList"
+              >
+                <div nz-col>
+                  <h4 nz-typography>{{ selectedAcrylic.label }}</h4>
+                  ${{ selectedAcrylic.acrylic.pricePerSquareMeter | number }}
+                </div>
+                <div nz-col>
+                  <h4 nz-typography>{{ selectedAcrylic.amount | number }}</h4>
+                  ${{
+                    selectedAcrylic.amount *
+                      selectedAcrylic.acrylic.pricePerSquareMeter | number
+                  }}
+                </div>
+              </div>
+            </nz-list-item>
+          </nz-list>
+        </div>
+      </div>
+      <nz-divider></nz-divider>
+      <p>
+        Total Articulo: $<b>{{ formQuoteItem.value | number }}</b>
+      </p>
+    </nz-card>
+  </div>
+  <div nz-col [nzSpan]="23">
+    <p>
+      Otros: <b>${{ formQuoteGeneral.others | number }}</b>
+    </p>
+    <p>
+      Porcentaje extra:
+      <b>{{ formQuoteGeneral.extraPercentage | number }}%</b>
+    </p>
+    <nz-divider></nz-divider>
+    <div nz-row nzAlign="middle" [nzGutter]="[24, 24]" nzJustify="start">
+      <div nz-col>
+        <app-quote-pdf-generator
+          *ngIf="!registrationActionCondition"
+          [infoQuote]="infoQuote"
+          (itemsEmiter)="itemsEmiter($event)"
+        ></app-quote-pdf-generator>
+      </div>
+    </div>
+    <div
+      nz-row
+      nzAlign="middle"
+      [nzGutter]="[24, 24]"
+      nzJustify="space-between"
+    >
+      <div nz-col>
+        <button
+          *ngIf="registrationActionCondition"
+          type="button"
+          nz-button
+          nzType="primary"
+          (click)="registerQuote()"
+        >
+          Registrar Cotización
+        </button>
+        <!-- <button
+          *ngIf="editActionCondition"
+          type="button"
+          nz-button
+          nzType="primary"
+          (click)="editQuote()"
+        >
+          Editar Cotización
+        </button> -->
+      </div>
+      <div nz-col>
+        <h2 nz-typography>${{ formQuoteGeneral.generalValue | number }}</h2>
+      </div>
+    </div>
+  </div>
+</div>

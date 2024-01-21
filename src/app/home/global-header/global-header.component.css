@@ -1,0 +1,30 @@
+
+      .header {
+        /* background: #1a334d; */
+        background: #171e52;
+        margin-bottom: 20px;
+        padding: 10px 0;
+      }
+
+      .header [nz-col] {
+        justify-content: center;
+        text-align: center;
+      }
+
+      .header [nz-col] button {
+        width: 180px;
+      }
+
+      .header h2 {
+        color: #ffffffff;
+        margin: 0;
+        justify-content: center;
+        text-align: center;
+        font-size: 30px;
+      }
+
+      .metalGlassLogo {
+        /* width: 100%; */
+        width: 200px;
+        height: 80px;
+      }

@@ -1,0 +1,27 @@
+#uploadFiles {
+  display: none;
+}
+
+.labelInputUploadFiles {
+  background: #171e52;
+  border-radius: 3px;
+  color: #ffffffff;
+  padding: 10px;
+}
+
+.labelInputUploadFiles:hover {
+  cursor: pointer;
+  box-shadow: 0 0 10px 0 rgb(196, 196, 196);
+}
+
+nz-select {
+  width: 100%;
+}
+
+.formBorderView {
+  border: solid rgb(214, 214, 214) 1px;
+  border-radius: 5px;
+  box-shadow: rgb(214, 214, 214) 1px 1px 3px 3px;
+  padding: 24px;
+  margin-bottom: 48px;
+}

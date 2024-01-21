@@ -1,0 +1,63 @@
+.header {
+  /* background: #1a334d; */
+  background: #171e52;
+  margin-bottom: 20px;
+  padding: 10px 0;
+}
+
+.header [nz-col] {
+  justify-content: center;
+  text-align: center;
+}
+
+.header [nz-col] button {
+  width: 180px;
+}
+
+.header h2 {
+  color: #ffffffff;
+  margin: 0;
+  text-align: center;
+  font-size: 30px;
+}
+
+form h3 {
+  text-align: center;
+  margin: 0;
+}
+
+.metalGlassLogo {
+  /* width: 100%; */
+  width: 200px;
+  height: 80px;
+}
+
+.nz-row-log-in-container {
+  height: 100%;
+  width: 100%;
+}
+
+.headerCard {
+  background: #171e52;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.nz-card {
+  width: 270px;
+  min-width: 270px;
+  border-radius: 7px;
+  box-shadow: 7px 7px #1a334d;
+  border: 1px solid rgb(131, 131, 131);
+}
+
+.nz-card h2 {
+  color: #ffffffff;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.nz-col-content-form {
+  margin-bottom: 10px;
+}

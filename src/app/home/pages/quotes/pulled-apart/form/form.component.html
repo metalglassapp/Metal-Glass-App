@@ -1,0 +1,107 @@
+<!-- <p>form works!</p> -->
+<app-global-header
+  *ngIf="dataForm && !dataForm.referenceId"
+  [data]="{
+    tittle: 'Registrar ' + dataForm.reference,
+    backTo: {
+      label: 'Volver a ' + reference,
+      route: '/home/' + reference
+    }
+  }"
+></app-global-header>
+<div
+  nz-row
+  nzAlign="middle"
+  [nzGutter]="[0, 0]"
+  nzJustify="center"
+  class="content-row"
+>
+  <div nz-col nzSpan="23" class="content-col">
+    <form nz-form [formGroup]="form" *ngIf="dataForm">
+      <div nz-row nzAlign="top" [nzGutter]="[0.0]" nzJustify="space-between">
+        <div nz-col nzSpan="24">
+          <div
+            nz-row
+            nzAlign="top"
+            [nzGutter]="[0, 0]"
+            nzJustify="space-between"
+          >
+            <div
+              nz-col
+              [nzXXl]="11"
+              [nzXl]="11"
+              [nzLg]="11"
+              [nzMd]="11"
+              [nzSm]="24"
+              [nzXs]="24"
+            >
+              <nz-form-item>
+                <nz-form-label nzSpan="24">{{
+                  dataForm.formControl_name.label
+                }}</nz-form-label>
+                <nz-form-control
+                  [nzErrorTip]="dataForm.formControl_name.errorLabel"
+                >
+                  <input
+                    nz-input
+                    [formControlName]="dataForm.formControl_name.name"
+                    placeholder="Nombre"
+                  />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+            <div
+              nz-col
+              [nzXXl]="11"
+              [nzXl]="11"
+              [nzLg]="11"
+              [nzMd]="11"
+              [nzSm]="24"
+              [nzXs]="24"
+            >
+              <nz-form-item>
+                <nz-form-label nzSpan="24">{{
+                  dataForm.formControl_price.label
+                }}</nz-form-label>
+                <nz-form-control
+                  [nzErrorTip]="dataForm.formControl_price.errorLabel"
+                >
+                  <input
+                    nz-input
+                    type="number"
+                    min="50"
+                    step="50"
+                    [formControlName]="dataForm.formControl_price.name"
+                    placeholder="Precio"
+                  />
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        nz-button
+        type="button"
+        nzType="primary"
+        class="registerButton"
+        *ngIf="dataForm && !dataForm.referenceId && !form.pristine"
+        [disabled]="form.invalid"
+        (click)="register()"
+      >
+        Registrar
+      </button>
+      <button
+        nz-button
+        type="button"
+        nzType="primary"
+        class="registerButton"
+        *ngIf="dataForm && dataForm.referenceId && !form.pristine"
+        [disabled]="form.invalid"
+        (click)="edit()"
+      >
+        Editar
+      </button>
+    </form>
+  </div>
+</div>

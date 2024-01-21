@@ -1,0 +1,136 @@
+<!-- <p>client-register works!</p> -->
+<app-global-header
+  *ngIf="!client"
+  [data]="globalHeaderData"
+></app-global-header>
+<div
+  nz-row
+  nzAlign="middle"
+  [nzGutter]="[0, 0]"
+  nzJustify="center"
+  class="content-row"
+>
+  <div nz-col nzSpan="22" class="content-col">
+    <nz-spin [nzSpinning]="spinning" [nzSize]="'large'" [nzTip]="'Cargando'">
+      <!-- <nz-card nzHoverable [ngClass]="{ cardView: !client }"> -->
+      <form
+        nz-form
+        [formGroup]="registerClientForm"
+        (ngSubmit)="client ? editCLient() : registerClient()"
+        [ngClass]="{ formBorderView: !client }"
+      >
+        <div nz-row nzAlign="top" [nzGutter]="[0.0]" nzJustify="space-between">
+          <div nz-col nzSpan="11" class="nz-col col-1">
+            <nz-form-item>
+              <nz-form-label nzSpan="24"
+                >Tipo de documento de documento</nz-form-label
+              >
+              <nz-form-control
+                nzErrorTip="!Porfavor ingresa tu tipo de documento¡"
+              >
+                <nz-select
+                  formControlName="documentType"
+                  nzPlaceHolder="Mi tipo de documento"
+                >
+                  <nz-option
+                    *ngFor="let documentType of documentTypes"
+                    [nzValue]="documentType.type"
+                    [nzLabel]="documentType.type"
+                  ></nz-option>
+                </nz-select>
+                <ng-template #selectIcon>
+                  <span nz-icon nzType="select" nzTheme="outline"></span>
+                </ng-template>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzSpan="24">Numero de documento</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                nzErrorTip="El numero de documento es requerido"
+              >
+                <input
+                  title="Numero de documento"
+                  nz-input
+                  [type]="'number'"
+                  [formControlName]="'documentNumber'"
+                  [placeholder]="'Numero de documento'"
+                />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzSpan="24">Nombres del cliente</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                nzErrorTip="Los nombres del cliente son requeridos"
+              >
+                <input nz-input formControlName="names" placeholder="Nombres" />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzSpan="24">Apellidos del cliente</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                nzErrorTip="Los apellidos del cliente son requeridos "
+              >
+                <input
+                  nz-input
+                  formControlName="surnames"
+                  placeholder="Apellidos"
+                />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label nzSpan="24">Numero de telefono</nz-form-label>
+              <nz-form-control
+                nzHasFeedback
+                nzErrorTip="El numero de telefono es requerido"
+              >
+                <input
+                  title="Numero de telefono"
+                  nz-input
+                  [type]="'number'"
+                  [formControlName]="'phoneNumber'"
+                  [placeholder]="'Numero de telefono'"
+                />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col nzSpan="11" class="nz-col col-2">
+            <nz-form-item>
+              <nz-form-label nzSpan="24">Correo del cliente</nz-form-label>
+              <nz-form-control nzHasFeedback>
+                <input
+                  nz-input
+                  type="email"
+                  formControlName="email"
+                  placeholder="Correo"
+                />
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <button
+          nz-button
+          type="submit"
+          nzType="primary"
+          title="Registrar"
+          [disabled]="!registerClientForm.valid"
+          *ngIf="!client && !registerClientForm.pristine"
+        >
+          Registrar
+        </button>
+        <button
+          nz-button
+          type="submit"
+          nzType="primary"
+          title="Editar"
+          [disabled]="!registerClientForm.valid"
+          *ngIf="client && !registerClientForm.pristine"
+        >
+          Editar
+        </button>
+      </form>
+    </nz-spin>
+  </div>
+</div>

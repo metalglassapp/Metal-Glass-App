@@ -1,0 +1,400 @@
+<!-- <p>clients-content works!</p> -->
+<nz-spin [nzSpinning]="spinning" [nzSize]="'large'" [nzTip]="'Cargando'">
+  <div *ngIf="clients">
+    <app-global-header [data]="globalHeaderData"></app-global-header>
+    <div
+      nz-row
+      nzAlign="middle"
+      [nzGutter]="[0, 20]"
+      nzJustify="center"
+      class="row-content"
+    >
+      <div nz-col nzSpan="24" class="col-content col-registerAssignment">
+        <div nz-row nzAlign="middle" [nzGutter]="[0, 0]" nzJustify="center">
+          <div nz-col nzSpan="23">
+            <button
+              nz-button
+              nzType="primary"
+              nzSize="large"
+              title="Back"
+              [routerLink]="['/home/clientes/registro-cliente']"
+              type="button"
+            >
+              Registrar un nuevo cliente
+            </button>
+          </div>
+        </div>
+      </div>
+      <div nz-col nzSpan="24" class="col-content">
+        <div nz-row nzAlign="middle" [nzGutter]="[0, 0]" nzJustify="center">
+          <div
+            nz-col
+            nzXXl="23"
+            nzXl="23"
+            nzLg="23"
+            nzMd="23"
+            nzSm="23"
+            nzXs="24"
+          >
+            <!-- [nzData]="clientsView" -->
+            <nz-table
+              #nzTable
+              [nzData]="tableData"
+              nzTableLayout="fixed"
+              [nzScroll]="{ x: '99%' }"
+              nzShowPagination
+              nzShowSizeChanger
+            >
+              <thead>
+                <tr>
+                  <!-- <th nzWidth="250px" nzCustomFilter>Tipo de documento</th> -->
+                  <th nzWidth="250px" nzCustomFilter>
+                    <div
+                      nz-row
+                      nzAlign="middle"
+                      [nzGutter]="[24, 24]"
+                      nzJustify="space-between"
+                    >
+                      <div nz-col>Tipo de documento</div>
+                      <div nz-col>
+                        <a
+                          nz-button
+                          nzType="link"
+                          nzSize="small"
+                          (click)="
+                            filtDocumentTypeCondition =
+                              !filtDocumentTypeCondition
+                          "
+                          ><span nz-icon nzType="down" nzTheme="outline"></span
+                        ></a>
+                      </div>
+                    </div>
+                    <form
+                      nz-form
+                      [formGroup]="findClientsFilterForm"
+                      [ngClass]="{ formView: filtDocumentTypeCondition }"
+                    >
+                      <div nz-row nzAlign="middle" nzJustify="space-between">
+                        <div nz-col nzSpan="21">
+                          <nz-select
+                            (ngModelChange)="restFiltFormValues($event)"
+                            nzMode="multiple"
+                            class="documentTypeFilter"
+                            nzShowSearch
+                            nzPlaceHolder="Tipo de documento"
+                            formControlName="documentType"
+                          >
+                            <nz-option
+                              *ngFor="let documentType of documentTypes"
+                              [nzValue]="{
+                                type: documentType
+                              }"
+                              [nzLabel]="documentType"
+                            ></nz-option>
+                          </nz-select>
+                        </div>
+                        <div nz-col nzSpan="2">
+                          <a
+                            nz-button
+                            nzType="primary"
+                            nzSize="small"
+                            nzShape="circle"
+                            (click)="documentTypeFilt()"
+                            ><span
+                              nz-icon
+                              nzType="search"
+                              nzTheme="outline"
+                            ></span
+                          ></a>
+                        </div>
+                      </div>
+                    </form>
+                  </th>
+                  <th nzWidth="250px" nzCustomFilter>
+                    <div
+                      nz-row
+                      nzAlign="middle"
+                      [nzGutter]="[5, 12]"
+                      nzJustify="space-between"
+                    >
+                      <div nz-col>Numero de documento</div>
+                      <div nz-col>
+                        <a
+                          nz-button
+                          nzType="link"
+                          nzSize="small"
+                          (click)="
+                            filtDocumentNumberCondition =
+                              !filtDocumentNumberCondition
+                          "
+                          ><span nz-icon nzType="down" nzTheme="outline"></span
+                        ></a>
+                      </div>
+                    </div>
+                    <form
+                      nz-form
+                      [formGroup]="findClientsFilterForm"
+                      [ngClass]="{ formView: filtDocumentNumberCondition }"
+                    >
+                      <div nz-row nzAlign="middle" nzJustify="space-between">
+                        <div nz-col nzSpan="21">
+                          <nz-select
+                            (ngModelChange)="restFiltFormValues($event)"
+                            nzMode="multiple"
+                            class="documentNumberFilter"
+                            nzShowSearch
+                            nzPlaceHolder="Numero de documento"
+                            formControlName="documentNumber"
+                          >
+                            <nz-option
+                              *ngFor="let documentNumber of documentNumbers"
+                              [nzValue]="{
+                                documentNumber: documentNumber
+                              }"
+                              [nzLabel]="documentNumber"
+                            ></nz-option>
+                          </nz-select>
+                        </div>
+                        <div nz-col nzSpan="2">
+                          <a
+                            nz-button
+                            nzType="primary"
+                            nzSize="small"
+                            nzShape="circle"
+                            (click)="documentNumberFilt()"
+                            ><span
+                              nz-icon
+                              nzType="search"
+                              nzTheme="outline"
+                            ></span
+                          ></a>
+                        </div>
+                      </div>
+                    </form>
+                  </th>
+                  <th nzWidth="250px" nzCustomFilter>
+                    <div
+                      nz-row
+                      nzAlign="middle"
+                      [nzGutter]="[5, 12]"
+                      nzJustify="space-between"
+                    >
+                      <div nz-col>Nombres</div>
+                      <div nz-col>
+                        <a
+                          nz-button
+                          nzType="link"
+                          nzSize="small"
+                          (click)="filtNamesCondition = !filtNamesCondition"
+                          ><span nz-icon nzType="down" nzTheme="outline"></span
+                        ></a>
+                      </div>
+                    </div>
+                    <form
+                      nz-form
+                      [formGroup]="findClientsFilterForm"
+                      [ngClass]="{ formView: filtNamesCondition }"
+                    >
+                      <!-- (ngModelChange)="filt('names', $event)" -->
+                      <div nz-row nzAlign="middle" nzJustify="space-between">
+                        <div nz-col nzSpan="21">
+                          <nz-select
+                            (ngModelChange)="restFiltFormValues($event)"
+                            nzMode="multiple"
+                            class="namesFilter"
+                            nzShowSearch
+                            nzPlaceHolder="Nombres"
+                            formControlName="names"
+                          >
+                            <nz-option
+                              *ngFor="let name of names"
+                              [nzValue]="{
+                                names: name
+                              }"
+                              [nzLabel]="name"
+                            ></nz-option>
+                          </nz-select>
+                        </div>
+                        <div nz-col nzSpan="2">
+                          <a
+                            nz-button
+                            nzType="primary"
+                            nzSize="small"
+                            nzShape="circle"
+                            (click)="namesFilt()"
+                            ><span
+                              nz-icon
+                              nzType="search"
+                              nzTheme="outline"
+                            ></span
+                          ></a>
+                        </div>
+                      </div>
+                    </form>
+                  </th>
+                  <th nzWidth="250px" nzCustomFilter>
+                    <div
+                      nz-row
+                      nzAlign="middle"
+                      [nzGutter]="[5, 12]"
+                      nzJustify="space-between"
+                    >
+                      <div nz-col>Apellidos</div>
+                      <div nz-col>
+                        <a
+                          nz-button
+                          nzType="link"
+                          nzSize="small"
+                          (click)="
+                            filtSurNamesCondition = !filtSurNamesCondition
+                          "
+                          ><span nz-icon nzType="down" nzTheme="outline"></span
+                        ></a>
+                      </div>
+                    </div>
+                    <form
+                      nz-form
+                      [formGroup]="findClientsFilterForm"
+                      [ngClass]="{ formView: filtSurNamesCondition }"
+                    >
+                      <div nz-row nzAlign="middle" nzJustify="space-between">
+                        <div nz-col nzSpan="21">
+                          <nz-select
+                            (ngModelChange)="restFiltFormValues($event)"
+                            nzMode="multiple"
+                            class="surnamesFilter"
+                            nzShowSearch
+                            nzPlaceHolder="Apellidos"
+                            formControlName="surnames"
+                          >
+                            <nz-option
+                              *ngFor="let surname of surnames"
+                              [nzValue]="{
+                                surnames: surname
+                              }"
+                              [nzLabel]="surname"
+                            ></nz-option>
+                          </nz-select>
+                        </div>
+                        <div nz-col nzSpan="2">
+                          <a
+                            nz-button
+                            nzType="primary"
+                            nzSize="small"
+                            nzShape="circle"
+                            (click)="surnamesFilt()"
+                            ><span
+                              nz-icon
+                              nzType="search"
+                              nzTheme="outline"
+                            ></span
+                          ></a>
+                        </div>
+                      </div>
+                    </form>
+                  </th>
+                  <th nzWidth="150px" nzCustomFilter>celular</th>
+                  <th nzWidth="250px" nzCustomFilter>Correo</th>
+                  <th nzWidth="120px">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <tr *ngFor="let client of tableData; let i = index"> -->
+                <tr *ngFor="let client of nzTable.data; let i = index">
+                  <td>
+                    <div *ngIf="client.documentType">
+                      {{ client.documentType }}
+                    </div>
+                  </td>
+                  <td>{{ client.documentNumber }}</td>
+                  <td>{{ client.names }}</td>
+                  <td>{{ client.surnames }}</td>
+                  <td>{{ client.phoneNumber }}</td>
+                  <td>{{ client.email }}</td>
+                  <td>
+                    <div
+                      nz-row
+                      nzAlign="middle"
+                      [nzGutter]="[24, 24]"
+                      nzJustify="space-around"
+                    >
+                      <div nz-col>
+                        <a
+                          nz-button
+                          nzType="primary"
+                          nzSize="default"
+                          nzShape="circle"
+                          title="Editar"
+                          (click)="showEditModal(client, i)"
+                          ><span nz-icon nzType="edit" nzTheme="outline"></span
+                        ></a>
+                      </div>
+                      <div nz-col>
+                        <!-- (click)="clientDelete(client._id)" -->
+                        <a
+                          *ngIf="client.id"
+                          nz-button
+                          nzType="primary"
+                          nzSize="default"
+                          nzShape="circle"
+                          nzDanger
+                          title="Eliminar"
+                          (click)="clientPerDelete = client"
+                          ><span
+                            nz-icon
+                            nzType="delete"
+                            nzTheme="outline"
+                          ></span
+                        ></a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </nz-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    nz-row
+    nzAlign="middle"
+    [nzGutter]="[24, 24]"
+    nzJustify="center"
+    *ngIf="clientPerDelete"
+  >
+    <div nz-col [nzSpan]="22">
+      <nz-alert
+        nzShowIcon
+        nzType="warning"
+        nzMessage="¿Seguro?"
+        [nzDescription]="descriptionTemplate2"
+      ></nz-alert>
+      <ng-template #descriptionTemplate2>
+        <!-- <p>Info Description Info Description Info Description Info Description</p> -->
+        <p *ngIf="clientPerDelete">
+          Seguro de eliminar a {{ clientPerDelete.names }}
+        </p>
+        <div nz-row nzAlign="middle" [nzGutter]="[24, 24]" nzJustify="end">
+          <div nz-col>
+            <button
+              nz-button
+              nzType="primary"
+              nzDanger
+              *ngIf="clientPerDelete"
+              (click)="clientDelete(clientPerDelete)"
+            >
+              Eliminar
+            </button>
+          </div>
+          <div nz-col>
+            <button nz-button nzType="primary" (click)="clientPerDelete = null">
+              Mejor no
+            </button>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</nz-spin>

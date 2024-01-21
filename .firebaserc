@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "metalglassapp": {
+      "hosting": {
+        "metalglassfront": [
+          "metalglassapp"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "metalglassapp"
+  }
+}

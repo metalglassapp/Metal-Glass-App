@@ -1,0 +1,96 @@
+<!-- <p>login works!</p> -->
+
+<div nz-row nzJustify="center" nzAlign="middle" class="nz-row-log-in-container">
+  <div nz-col class="nz-col-log-in-container">
+    <nz-card nzType="inner" [nzCover]="headerCard" class="nz-card">
+      <form
+        nz-form
+        [formGroup]="signInForm"
+        [nzLayout]="'vertical'"
+        (ngSubmit)="submitForm()"
+      >
+        <div
+          nz-row
+          [nzAlign]="'middle'"
+          [nzGutter]="[24, 24]"
+          [nzJustify]="'center'"
+        >
+          <div nz-col [nzSpan]="18">
+            <h3>METALGLASS</h3>
+            <div
+              nz-row
+              [nzAlign]="'middle'"
+              [nzGutter]="[24, 24]"
+              [nzJustify]="'space-between'"
+            >
+              <div nz-col>
+                <h5>Productos y servicios</h5>
+              </div>
+              <div nz-col>
+                <h5>P&S</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <nz-form-item>
+          <!-- <nz-form-label>Usuario</nz-form-label> -->
+          <nz-form-label>Correo</nz-form-label>
+          <nz-form-control nzErrorTip="El correo es requerido">
+            <nz-input-group [nzSize]="'large'" nzPrefixIcon="mail">
+              <input
+                formControlName="email"
+                nz-input
+                placeholder="Correo electronico"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label>Contraseña</nz-form-label>
+          <nz-form-control nzErrorTip="La contraseña es requerida">
+            <nz-input-group [nzSize]="'large'" nzPrefixIcon="lock">
+              <input
+                formControlName="password"
+                nz-input
+                type="password"
+                placeholder="Contraseña"
+              />
+            </nz-input-group>
+          </nz-form-control>
+          <!-- <br />
+          <a (click)="isVisible = true">¿Olvidó su contraseña?</a> -->
+        </nz-form-item>
+        <div
+          nz-row
+          [nzAlign]="'middle'"
+          [nzGutter]="[24, 24]"
+          [nzJustify]="'space-between'"
+        >
+          <div nz-col>
+            <button
+              type="submit"
+              nz-button
+              nzType="primary"
+              [disabled]="!signInForm.valid"
+            >
+              Ingresar
+            </button>
+          </div>
+          <div nz-col>
+            <!-- <a [routerLink]="['/admin/auth/solicitud-de-registro']"
+              >Registrarse</a
+            > -->
+          </div>
+        </div>
+      </form>
+    </nz-card>
+    <ng-template #headerCard>
+      <div nz-row [nzJustify]="'center'" class="headerCard">
+        <div nz-col [nzSpan]="24">
+          <h2>Iniciar sesion</h2>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

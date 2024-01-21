@@ -1,0 +1,77 @@
+<!-- <p>global-header works!</p> -->
+
+<div
+  nz-row
+  nzAlign="middle"
+  [nzGutter]="[0, 0]"
+  nzJustify="space-between"
+  class="header"
+>
+  <div
+    nz-col
+    nzSpan="4"
+    nzXXl="4"
+    nzXl="4"
+    nzLg="5"
+    nzMd="7"
+    nzSm="9"
+    nzXs="24"
+  >
+    <img
+      [src]="
+        'https://firebasestorage.googleapis.com/v0/b/audio-visual-turno.appspot.com/o/MetalGlassLogo.jpeg?alt=media&token=354bf13d-f55c-46ef-bd7e-117c673fc4a2'
+      "
+      [alt]="'Logo de Metal Glass'"
+      title="Logo de Metal Glass"
+      class="metalGlassLogo"
+    />
+  </div>
+  <div
+    nz-col
+    nzSpan="20"
+    nzXXl="20"
+    nzXl="20"
+    nzLg="19"
+    nzMd="17"
+    nzSm="15"
+    nzXs="24"
+  >
+    <div nz-row nzAlign="middle" [nzGutter]="[0, 0]" nzJustify="space-around">
+      <div
+        nz-col
+        nzSpan="18"
+        nzXXl="18"
+        nzXl="18"
+        nzLg="16"
+        nzMd="24"
+        nzSm="24"
+        nzXs="24"
+      >
+        <h2>{{ data.tittle }}</h2>
+      </div>
+      <div
+        nz-col
+        nzSpan="4"
+        nzXXl="4"
+        nzXl="4"
+        nzLg="6"
+        nzMd="24"
+        nzSm="24"
+        nzXs="24"
+      >
+        <button
+          type="button"
+          nz-button
+          nzType="primary"
+          nzSize="large"
+          tittle="Back"
+          (click)="
+            data.logoutCondition ? logout() : navigate(data.backTo.route)
+          "
+        >
+          {{ data.backTo.label }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

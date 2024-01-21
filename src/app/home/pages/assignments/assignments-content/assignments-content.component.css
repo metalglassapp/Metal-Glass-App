@@ -1,0 +1,48 @@
+#search_box,
+.search-box {
+  padding: 8px;
+}
+
+#search_box,
+.search-box input {
+  width: 188px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+#search_box,
+.search-box button {
+  width: 90px;
+}
+
+#search_box,
+.search-button {
+  margin-right: 8px;
+}
+
+/* .col-registerAssignment [nz-col] {
+  margin-right: 24px;
+
+} */
+
+.col-registerAssignment button {
+  width: 100%;
+}
+
+.deleteAlertContent {
+  height: 150px;
+}
+
+.deleteAlertRow {
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  padding-bottom: 24px;
+}
+
+nz-select,
+input {
+  width: 100%;
+}
