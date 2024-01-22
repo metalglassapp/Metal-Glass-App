@@ -1,0 +1,24 @@
+{
+  "routes": [
+    "/auth",
+    "/home",
+    "/home/accesorios",
+    "/home/accesorios/registro-accesorio",
+    "/home/acrilicos",
+    "/home/acrilicos/registro-acrilico",
+    "/home/asignaciones",
+    "/home/asignaciones/registro-asignacion",
+    "/home/clientes",
+    "/home/clientes/registro-cliente",
+    "/home/cotizaciones",
+    "/home/cotizaciones/registro-cotizacion",
+    "/home/perfiles",
+    "/home/perfiles/registro-perfil",
+    "/home/productos",
+    "/home/productos/registro-producto",
+    "/home/tipos-de-documentos",
+    "/home/tipos-de-documentos/registro-tipo-de-documento",
+    "/home/vidrios",
+    "/home/vidrios/registro-vidrio"
+  ]
+}
